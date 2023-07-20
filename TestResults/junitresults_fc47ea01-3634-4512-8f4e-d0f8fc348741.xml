@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="0.064" timestamp="2023-07-20T15:41:25.884631" hostname="Rodrigo"><testcase classname="tests.test_1.TestClass" name="test_class_name" file="tests\test_1.py" line="4" time="0.001"><failure message="AttributeError: 'Cavalinho' object has no attribute '_name'">self = &lt;tests.test_1.TestClass object at 0x0000020109E1BD30&gt;
+
+    def test_class_name(self):
+        cavalinho = Cavalinho()
+&gt;       assert cavalinho.name == "Waldisney"
+
+tests\test_1.py:7: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;srcs.Cavalinho.Cavalinho object at 0x0000020109E532B0&gt;
+
+    @property
+    def name(self):
+&gt;       return self._name
+E       AttributeError: 'Cavalinho' object has no attribute '_name'
+
+srcs\Cavalinho.py:7: AttributeError</failure><system-out>--------------------------------- Captured Log ---------------------------------
+
+--------------------------------- Captured Out ---------------------------------
+
+</system-out><system-err>--------------------------------- Captured Err ---------------------------------
+
+</system-err></testcase></testsuite></testsuites>

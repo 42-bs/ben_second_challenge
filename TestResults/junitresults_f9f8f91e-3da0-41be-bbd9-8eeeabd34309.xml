@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="1" skipped="1" tests="4" time="0.190" timestamp="2023-07-20T15:51:26.203597" hostname="Rodrigo"><testcase classname="tests.test_datapoint.TestClass" name="test_default_data_point_return" file="tests\test_datapoint.py" line="4" time="0.001"><failure message="AttributeError: type object 'datetime.datetime' has no attribute 'timezone'">self = &lt;tests.test_datapoint.TestClass object at 0x00000289D4C64D90&gt;
+
+    def test_default_data_point_return(self):
+&gt;       new_data_point = DataPoint(DataPointBuilder())
+
+tests\test_datapoint.py:6: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+srcs\data_point.py:12: in __init__
+    self._date = builder.date()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;srcs.data_point_builder.DataPointBuilder object at 0x00000289D4C99B80&gt;
+
+    def date(self):
+    	"""
+    	Create a random timestamp value to represent the date field.
+    
+    	Returns:
+    		date: a random timestamp value as date
+    	"""
+    
+&gt;   	return datetime.now(datetime.timezone.utc)
+E    AttributeError: type object 'datetime.datetime' has no attribute 'timezone'
+
+srcs\data_point_builder.py:53: AttributeError</failure><system-out>--------------------------------- Captured Log ---------------------------------
+
+--------------------------------- Captured Out ---------------------------------
+
+</system-out><system-err>--------------------------------- Captured Err ---------------------------------
+
+</system-err></testcase><testcase classname="tests.test_datapointbuilder.TestClass" name="test_default_id_lesser_than_longmax" file="tests\test_datapointbuilder.py" line="8" time="0.002"><system-out>--------------------------------- Captured Log ---------------------------------
+
+--------------------------------- Captured Out ---------------------------------
+
+</system-out><system-err>--------------------------------- Captured Err ---------------------------------
+
+</system-err></testcase><testcase classname="tests.test_datapointbuilder.TestClass" name="test_default_id_return" file="tests\test_datapointbuilder.py" line="3" time="0.001"><system-out>--------------------------------- Captured Log ---------------------------------
+
+--------------------------------- Captured Out ---------------------------------
+
+</system-out><system-err>--------------------------------- Captured Err ---------------------------------
+
+</system-err></testcase><testcase classname="tests.test_datapointkafkaproducer.TestClass" name="test_send_through_kafka" file="tests\test_datapointkafkaproducer.py" line="11" time="0.000"><skipped type="pytest.skip" message="need to specify if server is on localhost or docker">C:\Users\Rodrigo Alves\source\repos\ben_second_challenge\ben_second_challenge\tests\test_datapointkafkaproducer.py:12: need to specify if server is on localhost or docker</skipped><system-out>--------------------------------- Captured Log ---------------------------------
+
+--------------------------------- Captured Out ---------------------------------
+
+</system-out><system-err>--------------------------------- Captured Err ---------------------------------
+
+</system-err><system-out>--------------------------------- Captured Log ---------------------------------
+
+--------------------------------- Captured Out ---------------------------------
+
+</system-out><system-err>--------------------------------- Captured Err ---------------------------------
+
+</system-err></testcase></testsuite></testsuites>
