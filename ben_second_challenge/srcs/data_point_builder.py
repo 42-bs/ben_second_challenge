@@ -10,7 +10,6 @@ class DataPointBuilder:
 
 	def __init__(self,
 		id_list_size = 10,
-		long_max = 9223372036854775807,
 		max_energy_value = 9999999,
 		characters_allowed = string.ascii_letters + string.digits):
 		"""
@@ -18,9 +17,8 @@ class DataPointBuilder:
 		"""
 
 		self._id_list_size = id_list_size
-		self._long_max = long_max
 		self._max_energy_value = max_energy_value
-		self._id_list = [random.randrange(1, long_max) for _ in range(id_list_size)]
+		self._id_list = [random.randrange(1, id_list_size + 1) for _ in range(id_list_size)]
 
 	def id(self):
 		"""
