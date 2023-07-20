@@ -49,5 +49,7 @@ class DataPointBuilder:
 		Returns:
 			date: a random timestamp value as date
 		"""
+		return datetime.utcnow().isoformat()
 
-		return datetime.now(datetime.timezone.utc)
+	def status(self):
+		return "OK"
