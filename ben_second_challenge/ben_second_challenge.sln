@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33815.320
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "ben_second_challenge", "ben_second_challenge\ben_second_challenge.pyproj", "{1B2512B5-EC6E-4E46-8BD6-308E15258BBE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1B2512B5-EC6E-4E46-8BD6-308E15258BBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B2512B5-EC6E-4E46-8BD6-308E15258BBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3A5FF8CA-21B1-45F5-989A-29E67EEB61AA}
+	EndGlobalSection
+EndGlobal
