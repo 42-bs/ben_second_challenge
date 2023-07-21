@@ -41,6 +41,22 @@ services:
     volumes:
       - ./db/db1:/var/opt/mssql/data
 
+  consumer:
+    networks:
+      - network_ben
+    depends_on:
+      - producer
+    environment:
+      KAFKA_HOST: "kafka:9092"
+      DB_SERVER: ${DOCKER_DB1_MSSQL_HOST}
+      DB_USER: ${DB1_MSSQL_USER}
+      DB_PASS: ${DB1_MSSQL_SA_PASSWORD}
+    build:
+      context: ./consumer
+      dockerfile: Dockerfile
+    command: >
+      sh -c "dotnet ef database update && dotnet run"
+
 networks:
   network_ben:
     driver: bridge
