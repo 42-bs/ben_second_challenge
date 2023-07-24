@@ -11,7 +11,7 @@ namespace Api.Data
     /// <summary>
     /// Define the context of the database and the table for DataPointHistory model and specify the db provider configuration.
     /// </summary>
-    internal class DataPointDbContext : DbContext
+    public class DataPointDbContext : DbContext
     {
         /// <summary>
         /// Gets or Sets Representation of DataPointHistory Entity.
@@ -26,13 +26,14 @@ namespace Api.Data
         /// <inheritdoc/>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=" +
-                        Env.GetString("DB_SERVER") +
-                        ";Database=Ben; User Id=" +
-                        Env.GetString("DB_USER") +
-                        "; Password=" +
-                        Env.GetString("DB_PASS") +
-                        ";TrustServerCertificate=true");
+        //     optionsBuilder.UseSqlServer(@"Server=" +
+        //                 Env.GetString("DB_SERVER") +
+        //                 ";Database=Ben; User Id=" +
+        //                 Env.GetString("DB_USER") +
+        //                 "; Password=" +
+        //                 Env.GetString("DB_PASS") +
+        //                 ";TrustServerCertificate=true");
+            optionsBuilder.UseSqlServer(@"Server=localhost;Database=Ben;User Id=SA;Password=Bosch42$;TrustServerCertificate=true");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
