@@ -18,7 +18,7 @@ namespace Api.Controllers
             _mapper = mapper;
         }
         [HttpGet]
-        public IEnumerable<ReadDataPointHistoryDto> Cavalinho()
+        public IEnumerable<ReadDataPointHistoryDto> GetDataPointHistory()
         {
             return _mapper.Map<List<ReadDataPointHistoryDto>>(_context.DataPointHistoryTable.ToList());
         }

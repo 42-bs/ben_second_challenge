@@ -6,13 +6,15 @@ namespace Api.Data
 {
     using DotNetEnv;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Api.Models;
 
     /// <summary>
     /// Define the context of the database and the table for DataPointHistory model and specify the db provider configuration.
     /// </summary>
-    public class DataPointDbContext : DbContext
+    public class DataPointDbContext : IdentityDbContext<User>
     {
+        public DataPointDbContext(DbContextOptions<DataPointDbContext> options): base(options) {}
         /// <summary>
         /// Gets or Sets Representation of DataPointHistory Entity.
         /// </summary>
@@ -22,6 +24,8 @@ namespace Api.Data
         /// Gets or Sets Representation of DataPoint Entity.
         /// </summary>
         public DbSet<DataPoint> DataPointTable { get; set; }
+
+        public DbSet<User> UserTable { get; set; }
 
         /// <inheritdoc/>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
