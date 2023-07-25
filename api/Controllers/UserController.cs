@@ -16,18 +16,20 @@ namespace Api.Controllers
         {
             _userService = userService;
         }
+
         [HttpPost("signup")]
         public async Task <IActionResult> Signup(CreateUserDto createuserdto)
         {
             await _userService.Signup(createuserdto);
-            return Ok();
+            return Ok("User Created");
         }
-        // [HttpPost("signin")]
-        // public async Task <IActionResult> Signin(LoginUserDto loginuserdto)
-        // {
-        //     var token = await _userService.Signin(loginuserdto);
-        //     return Ok(token);
-        // }
+
+        [HttpPost("signin")]
+        public async Task<IActionResult> Signin(LoginUserDto loginuserdto)
+        {
+            await _userService.Signin(loginuserdto);
+            return Ok("User logged");
+        }
 
     }
 }

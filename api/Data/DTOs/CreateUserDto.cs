@@ -5,14 +5,14 @@ namespace Api.Data.DTOs
     public class CreateUserDto
     {
         [Required]
-        public string UserName { get; set; }
+        public string Username { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        public string UserPassword { get; set; }
+        public string Password { get; set; }
 
         [Required]
-        [Compare("UserPassword")]
-        public string UserPasswordConfirmation { get; set; }
+        [Compare("Password")]
+        public string RePassword { get; set; }
     }
 }

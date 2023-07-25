@@ -9,19 +9,19 @@ namespace Api.Services
     {
         private readonly IMapper _mapper;
         private readonly UserManager<User> _usermanager;
-        private readonly SignInManager<User> _signinmanager;
-        public UserService(IMapper mapper, UserManager<User> usermanager, SignInManager<User> signinmanager)
+        private readonly SignInManager<User> _signInManager;
+        public UserService(IMapper mapper, UserManager<User> usermanager, SignInManager<User> signInManager)
         {
             _mapper = mapper;
             _usermanager = usermanager;
-            _signinmanager = signinmanager;
+            _signInManager = signInManager;
         }
 
         public async Task Signup(CreateUserDto createUserDto)
         {
             User user = _mapper.Map<User>(createUserDto);
 
-            var result = await _usermanager.CreateAsync(user, createUserDto.UserPassword);
+            IdentityResult result = await _usermanager.CreateAsync(user, createUserDto.Password);
 
             if (!result.Succeeded)
             {
@@ -29,9 +29,14 @@ namespace Api.Services
             }
         }
 
-        // public async Task Signin(LoginUserDto loginUserDto)
-        // {
-        //     throw new NotImplementedException();
-        // }
+        public async Task Signin(LoginUserDto loginUserDto)
+        {
+            var result = await _signInManager.PasswordSignInAsync(loginUserDto.UserName, loginUserDto.Password, false, false);
+        
+            if (!result.Succeeded)
+            {
+                throw new ApplicationException("Failed to Login");
+            }
+        }
     }
 }

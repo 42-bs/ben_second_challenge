@@ -8,6 +8,6 @@ namespace Api.Data.DTOs
         public string UserName { get; set; }
 
         [Required]
-        public string UserPassword { get; set; }
+        public string Password { get; set; }
     }
 }

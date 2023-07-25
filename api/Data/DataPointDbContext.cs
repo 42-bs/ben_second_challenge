@@ -5,8 +5,8 @@
 namespace Api.Data
 {
     using DotNetEnv;
-    using Microsoft.EntityFrameworkCore;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore;
     using Api.Models;
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace Api.Data
         /// </summary>
         public DbSet<DataPoint> DataPointTable { get; set; }
 
-        public DbSet<User> UserTable { get; set; }
+        //public DbSet<User> UserTable { get; set; }
 
         /// <inheritdoc/>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -37,21 +37,25 @@ namespace Api.Data
         //                 "; Password=" +
         //                 Env.GetString("DB_PASS") +
         //                 ";TrustServerCertificate=true");
-            optionsBuilder.UseSqlServer(@"Server=localhost;Database=Ben;User Id=SA;Password=Bosch42$;TrustServerCertificate=true");
+            optionsBuilder.UseSqlServer(@"Server=localhost;Database=Ben;User Id=SA;Password=Cavalinho42$;TrustServerCertificate=true");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Ignore<DataPoint>();
+            modelBuilder.Ignore<DataPointHistory>();
+
             modelBuilder.Entity<DataPointHistory>()
-				.HasOne(e => e.DataPoint)
-				.WithMany(e => e.DataPointHistorys)
-				.HasForeignKey(e => e.DataPointId)
-				.HasPrincipalKey(e => e.Id)
-				.IsRequired();
-                // .HasMany(e => e.DataPointHistorys)
-                // .WithOne(e => e.DataPoint)
-                // .HasForeignKey(e => e.DataPointId)
-                // .HasPrincipalKey(e => e.Id);
+                .HasOne(e => e.DataPoint)
+                .WithMany(e => e.DataPointHistorys)
+                .HasForeignKey(e => e.DataPointId)
+                .HasPrincipalKey(e => e.Id)
+                .IsRequired();
+            //.HasMany(e => e.DataPointHistorys)
+            //.WithOne(e => e.DataPoint)
+            //.HasForeignKey(e => e.DataPointId)
+            //.HasPrincipalKey(e => e.Id);
         }
     }
 }

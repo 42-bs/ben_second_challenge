@@ -17,6 +17,7 @@ namespace Api.Controllers
             _context = context;
             _mapper = mapper;
         }
+
         [HttpGet]
         public IEnumerable<ReadDataPointHistoryDto> GetDataPointHistory()
         {

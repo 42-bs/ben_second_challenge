@@ -4,9 +4,10 @@ namespace Api.Profiles
     using Api.Data.DTOs;
     using Api.Models;
 
-    public class UserProfile: Profile {
-        public UserProfile() {
-            CreateMap<User, CreateUserDto>();
+    public class UserProfile: Profile
+    {
+        public UserProfile()
+        {
             CreateMap<CreateUserDto, User>();
         }
     }
