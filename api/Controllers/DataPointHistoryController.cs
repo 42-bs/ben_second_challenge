@@ -5,9 +5,11 @@ namespace Api.Controllers
     using Api.Data.DTOs;
     using Api.Models;
     using AutoMapper;
+    using Microsoft.AspNetCore.Authorization;
 
     [ApiController]
     [Route("[controller]")]
+    [Authorize(Policy = "Bearer")]
     public class DataPointHistoryController: ControllerBase
     {
         private readonly DataPointDbContext _context;

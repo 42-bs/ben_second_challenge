@@ -5,6 +5,8 @@ using Microsoft.IdentityModel.Tokens;
 using Api.Data;
 using Api.Models;
 using Api.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,11 +17,41 @@ builder.Services.AddIdentity<User, IdentityRole>()
 .AddEntityFrameworkStores<DataPointDbContext>()
 .AddDefaultTokenProviders();
 
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+
+}).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding
+                .UTF8
+                .GetBytes(builder.Configuration["SymmetricSecurityKey"])
+                ),
+        ValidateAudience = false,
+        ValidateIssuer = false,
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero
+    };
+});
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Bearer", policy =>
+    {
+        policy.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
+        policy.RequireAuthenticatedUser();
+    });
+});
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // builder.Services.AddDataProtection();
 
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<TokenService>();
 
 builder.Services.AddDataProtection()
     .PersistKeysToFileSystem(new DirectoryInfo(Path.GetTempPath()));
@@ -41,6 +73,7 @@ if (app.Environment.IsDevelopment())
 
 // app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
