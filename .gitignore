@@ -2,7 +2,8 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+.vs/*
+.vs*
 # C extensions
 *.so
 
@@ -212,3 +213,4 @@ consumer/.store/
 
 TestResults*
 ben_second_challenge/tests*
+api/.config/
