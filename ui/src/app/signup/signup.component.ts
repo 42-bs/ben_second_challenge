@@ -21,11 +21,11 @@ export class SignupComponent {
         this.password = "";
         this.show = true;
     }
-    sendauthdata() {
+    // sendauthdata() {
         
-        this.http.post<any>("http://localhost:3000/signupUsersList",this.)
-        .subscribe(res=>{alert('SIGNIN SUCCESFUL');
-        this.router.navigate(["login"])},
-        err=>{alert("Something went wrong")})
-    }
+    //     this.http.post<any>("http://localhost:3000/signupUsersList",this.)
+    //     .subscribe(res=>{alert('SIGNIN SUCCESFUL');
+    //     this.router.navigate(["login"])},
+    //     err=>{alert("Something went wrong")})
+    // }
 }
