@@ -27,8 +27,8 @@ namespace Api.Controllers
         [HttpPost("signin")]
         public async Task<IActionResult> Signin(LoginUserDto loginuserdto)
         {
-            await _userService.Signin(loginuserdto);
-            return Ok("User logged");
+            var token = await _userService.Signin(loginuserdto);
+            return Ok(token);
         }
 
     }

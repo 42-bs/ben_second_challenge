@@ -14,7 +14,11 @@ namespace Api.Data
     /// </summary>
     public class DataPointDbContext : IdentityDbContext<User>
     {
-        public DataPointDbContext(DbContextOptions<DataPointDbContext> options): base(options) {}
+        private readonly IConfiguration _configuration;
+        public DataPointDbContext(DbContextOptions<DataPointDbContext> options, IConfiguration configuration): base(options)
+        {
+            _configuration = configuration;
+        }
         /// <summary>
         /// Gets or Sets Representation of DataPointHistory Entity.
         /// </summary>
@@ -30,14 +34,7 @@ namespace Api.Data
         /// <inheritdoc/>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-        //     optionsBuilder.UseSqlServer(@"Server=" +
-        //                 Env.GetString("DB_SERVER") +
-        //                 ";Database=Ben; User Id=" +
-        //                 Env.GetString("DB_USER") +
-        //                 "; Password=" +
-        //                 Env.GetString("DB_PASS") +
-        //                 ";TrustServerCertificate=true");
-            optionsBuilder.UseSqlServer(@"Server=localhost;Database=Ben;User Id=SA;Password=Cavalinho42$;TrustServerCertificate=true");
+            optionsBuilder.UseSqlServer(_configuration["ConnectionStrings:UserConnection"]);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -52,10 +49,6 @@ namespace Api.Data
                 .HasForeignKey(e => e.DataPointId)
                 .HasPrincipalKey(e => e.Id)
                 .IsRequired();
-            //.HasMany(e => e.DataPointHistorys)
-            //.WithOne(e => e.DataPoint)
-            //.HasForeignKey(e => e.DataPointId)
-            //.HasPrincipalKey(e => e.Id);
         }
     }
 }
