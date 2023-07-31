@@ -1,4 +1,4 @@
-export class DpuiUserAuth {
+export class AppUserAuth {
     userName: string;
     token: string;
     expiration: Date;
