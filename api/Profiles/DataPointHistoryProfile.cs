@@ -8,7 +8,8 @@ namespace Api.Profiles
         public DataPointHistoryProfile() {
             // CreateMap<ReadDataPointHistoryDto, DataPointHistory>();
             CreateMap<DataPointHistory, ReadDataPointHistoryDto>()
-            .ForMember(dto => dto.DataPoint, opt => opt.MapFrom(datapointhistory => datapointhistory.DataPoint));
+            .ForMember(dto => dto.DataPoint, opt =>
+                opt.MapFrom(datapointhistory => datapointhistory.DataPoint));
         }
     }
 }

@@ -1,9 +1,7 @@
 namespace Api.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-    using Api.Data;
     using Api.Data.DTOs;
-    using Api.Models;
     using AutoMapper;
     using Microsoft.AspNetCore.Authorization;
     using api.Repositories;
@@ -22,9 +20,10 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<ReadDataPointHistoryDto> GetDataPointHistory()
+        public async Task<IEnumerable<ReadDataPointHistoryDto>> GetDataPointHistory()
         {
-            return _mapper.Map<List<ReadDataPointHistoryDto>>(_repo.GetAllAsync());
+            var dataPointHistoryModel = await _repo.GetAllAsync();
+            return _mapper.Map<List<ReadDataPointHistoryDto>>(dataPointHistoryModel);
         }
     }
 }

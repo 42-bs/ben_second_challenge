@@ -4,7 +4,6 @@ namespace Api.Services
     using Microsoft.AspNetCore.Identity;
     using Api.Models;
     using Api.Data.DTOs;
-    using Api.Services;
 
     public class UserService
     {
