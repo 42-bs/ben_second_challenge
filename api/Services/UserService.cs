@@ -35,7 +35,7 @@ namespace Api.Services
             }
         }
 
-        public async Task<string> Signin(LoginUserDto loginUserDto)
+        public async Task<JwtToken> Signin(LoginUserDto loginUserDto)
         {
             var result = await _signInManager.PasswordSignInAsync(
                 loginUserDto.UserName, loginUserDto.Password, false, false);
