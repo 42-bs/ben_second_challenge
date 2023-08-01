@@ -6,24 +6,25 @@ namespace Api.Controllers
     using Api.Models;
     using AutoMapper;
     using Microsoft.AspNetCore.Authorization;
+    using api.Repositories;
 
     [ApiController]
     [Route("[controller]")]
     [Authorize(Policy = "Bearer")]
     public class DataPointHistoryController: ControllerBase
     {
-        private readonly DataPointDbContext _context;
+        private readonly IDataPointHistoryRepository _repo;
         private readonly IMapper _mapper;
-        public DataPointHistoryController(DataPointDbContext context, IMapper mapper)
+        public DataPointHistoryController(IDataPointHistoryRepository repo, IMapper mapper)
         {
-            _context = context;
+            this._repo = repo;
             _mapper = mapper;
         }
 
         [HttpGet]
         public IEnumerable<ReadDataPointHistoryDto> GetDataPointHistory()
         {
-            return _mapper.Map<List<ReadDataPointHistoryDto>>(_context.DataPointHistoryTable.ToList());
+            return _mapper.Map<List<ReadDataPointHistoryDto>>(_repo.GetAllAsync());
         }
     }
 }

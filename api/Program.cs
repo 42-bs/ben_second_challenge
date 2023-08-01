@@ -7,6 +7,7 @@ using Api.Models;
 using Api.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
+using api.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,8 @@ builder.Services.AddDbContext<DataPointDbContext>();
 builder.Services.AddIdentity<User, IdentityRole>()
 .AddEntityFrameworkStores<DataPointDbContext>()
 .AddDefaultTokenProviders();
+
+builder.Services.AddScoped<IDataPointHistoryRepository, DataPointHistoryRepository>();
 
 builder.Services.AddAuthentication(options =>
 {
