@@ -29,9 +29,9 @@ export class SigninComponent implements OnInit {
                 Object.assign(userLogin, this.loginForm.value);
                 this.authService.signin(userLogin).subscribe((data: LoginResponse) => {
                         if (data.token !== null) {
-                            console.log(data.token);
+                            this.router.navigate(['/accessdata']);
                         } else {
-                            alert("Falha no Login!");
+                            alert("Login failed");
                         }
                     },
                 );
