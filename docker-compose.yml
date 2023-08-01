@@ -10,7 +10,7 @@ services:
     environment:
       - ALLOW_PLAINTEXT_LISTENER=yes
     depends_on:
-      sqlserver1:
+      sqlserver:
         condition: service_healthy
 
   producer:
@@ -24,7 +24,7 @@ services:
       context: ./ben_second_challenge
       dockerfile: Dockerfile
 
-  sqlserver1:
+  sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
     networks:
       - network_ben
