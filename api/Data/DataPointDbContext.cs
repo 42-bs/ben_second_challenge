@@ -40,15 +40,6 @@ namespace Api.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Ignore<DataPoint>();
-            modelBuilder.Ignore<DataPointHistory>();
-
-            modelBuilder.Entity<DataPointHistory>()
-                .HasOne(e => e.DataPoint)
-                .WithMany(e => e.DataPointHistorys)
-                .HasForeignKey(e => e.DataPointId)
-                .HasPrincipalKey(e => e.Id)
-                .IsRequired();
         }
     }
 }
