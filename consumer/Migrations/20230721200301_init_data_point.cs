@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace consumer.Migrations
 {
     /// <inheritdoc />
-    public partial class init_data_point : Migration
+    public partial class Init_data_point : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

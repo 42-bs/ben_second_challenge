@@ -1,3 +1,5 @@
+# nullable disable
+
 namespace Api.Data.DTOs
 {
     using System.ComponentModel.DataAnnotations;

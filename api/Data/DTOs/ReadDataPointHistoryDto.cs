@@ -38,6 +38,6 @@ namespace Api.Data.DTOs
         /// <summary>
         /// Gets or Sets Representation of DataPoint as DataPoint.
         /// </summary>
-        public virtual DataPoint DataPoint { get; set; }
+        public virtual DataPoint? DataPoint { get; set; }
     }
 }

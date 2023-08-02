@@ -4,6 +4,8 @@ using System.Text;
 using Api.Models;
 using Microsoft.IdentityModel.Tokens;
 
+#nullable disable
+
 namespace Api.Services
 {
     public class TokenService

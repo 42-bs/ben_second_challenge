@@ -35,7 +35,7 @@ namespace Api.Services
             }
         }
 
-        public async Task<JwtToken> Signin(LoginUserDto loginUserDto)
+        public async Task<JwtToken?> Signin(LoginUserDto loginUserDto)
         {
             var result = await _signInManager.PasswordSignInAsync(
                 loginUserDto.UserName, loginUserDto.Password, false, false);
@@ -49,6 +49,11 @@ namespace Api.Services
                 .UserManager
                 .Users
                 .FirstOrDefault(u => u.NormalizedUserName == loginUserDto.UserName.ToUpper());
+            
+            if (user == null)
+            {
+                return null;
+            }
 
             var token = _tokenService.GenerateToken(user);
 

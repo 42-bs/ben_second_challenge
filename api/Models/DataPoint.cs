@@ -50,6 +50,7 @@ namespace Api.Models
         [Required]
         public double? Offset { get; set; }
 
+#nullable disable
         /// <summary>
         /// Gets Representation of DataPointHistorys as ICollection.
         /// </summary>

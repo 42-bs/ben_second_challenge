@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace consumer.Migrations
 {
     [DbContext(typeof(DataPointDbContext))]
-    [Migration("20230721200301_init_data_point")]
-    partial class init_data_point
+    [Migration("20230721200301_Init_data_point")]
+    partial class Init_data_point
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
