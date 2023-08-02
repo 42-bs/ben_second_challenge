@@ -15,7 +15,7 @@ namespace Api.Services
             _configuration = configuration;
         }
 
-        public string GenerateToken(User user)
+        public JwtToken GenerateToken(User user)
         {
             Claim[] claims = new Claim[]
             {
@@ -32,11 +32,16 @@ namespace Api.Services
             var signinCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                expires: DateTime.Now.AddMinutes(10),
+                expires: DateTime.Now.AddMinutes(1),
                 claims: claims,
                 signingCredentials: signinCredentials);
+            
+            var jwtToken = new JwtToken
+            {
+                Token = new JwtSecurityTokenHandler().WriteToken(token)
+            };
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            return jwtToken;
         }
     }
 }
