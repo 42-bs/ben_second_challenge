@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./signin.component.sass']
 })
 export class SigninComponent implements OnInit {
-    title = 'datapointui';
     loginForm = new FormGroup({
         userName: new FormControl(null, Validators.required),
         password: new FormControl(null, Validators.required)
