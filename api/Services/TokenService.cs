@@ -5,7 +5,9 @@ namespace Api.Services
     using System.IdentityModel.Tokens.Jwt;
     using System.Security.Claims;
     using System.Text;
+    using Api.Data.DTOs;
     using Api.Models;
+    using AutoMapper;
     using Microsoft.IdentityModel.Tokens;
 
     /// <summary>
@@ -14,14 +16,17 @@ namespace Api.Services
     public class TokenService
     {
         private readonly IConfiguration configuration;
+        private readonly IMapper mapper;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TokenService"/> class.
         /// </summary>
         /// <param name="configuration">Contains the configuration options of the application.</param>
-        public TokenService(IConfiguration configuration)
+        /// <param name="mapper">Maps DTO to model.</param>
+        public TokenService(IConfiguration configuration, IMapper mapper)
         {
             this.configuration = configuration;
+            this.mapper = mapper;
         }
 
         /// <summary>
@@ -29,7 +34,7 @@ namespace Api.Services
         /// </summary>
         /// <param name="user">Represents the Model of a user.</param>
         /// <returns>Returns a token.</returns>
-        public JwtToken GenerateToken(User user)
+        public CreateTokenDto GenerateToken(User user)
         {
             Claim[] claims = new Claim[]
             {
@@ -54,7 +59,7 @@ namespace Api.Services
                 Token = new JwtSecurityTokenHandler().WriteToken(token)
             };
 
-            return jwtToken;
+            return mapper.Map<CreateTokenDto>(jwtToken);
         }
     }
 }

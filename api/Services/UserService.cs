@@ -58,7 +58,7 @@ namespace Api.Services
         /// <param name="loginUserDto">User's sent object to login.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <exception cref="ApplicationException">Thrown if there's an error during the login.</exception>
-        public async Task<JwtToken?> Signin(LoginUserDto loginUserDto)
+        public async Task<CreateTokenDto?> Signin(LoginUserDto loginUserDto)
         {
             var result = await signInManager.PasswordSignInAsync(
                 loginUserDto.UserName, loginUserDto.Password, false, false);
