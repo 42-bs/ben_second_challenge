@@ -1,92 +1,103 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.DataProtection;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Api.Data;
-using Api.Models;
-using Api.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using System.Text;
-using api.Repositories;
-
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.AddCors(options =>
+namespace Api
 {
-    options.AddPolicy("CorsPolicy", policy =>
+    using System.Text;
+    using Api.Data;
+    using Api.Models;
+    using Api.Repositories;
+    using Api.Services;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.AspNetCore.DataProtection;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.IdentityModel.Tokens;
+
+    /// <summary>
+    /// Represents the entrypoint of the application.
+    /// </summary>
+    public class Program
     {
-        policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
-    });
-});
+        /// <summary>
+        /// The main entrypoint of the application.
+        /// </summary>
+        /// <param name="args">Command line arguments passed to the application.</param>
+        public static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<DataPointDbContext>();
+            // Add services to the container.
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+                });
+            });
 
-builder.Services.AddIdentity<User, IdentityRole>()
-.AddEntityFrameworkStores<DataPointDbContext>()
-.AddDefaultTokenProviders();
+            builder.Services.AddDbContext<DataPointDbContext>();
 
-builder.Services.AddScoped<IDataPointHistoryRepository, DataPointHistoryRepository>();
+            builder.Services.AddIdentity<User, IdentityRole>()
+            .AddEntityFrameworkStores<DataPointDbContext>()
+            .AddDefaultTokenProviders();
 
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            builder.Services.AddScoped<IDataPointHistoryRepository, DataPointHistoryRepository>();
 
-}).AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding
-                .UTF8
-                .GetBytes(builder.Configuration["SymmetricSecurityKey"])
-                ),
-        ValidateAudience = false,
-        ValidateIssuer = false,
-        ValidateLifetime = true,
-        ClockSkew = TimeSpan.Zero
-    };
-});
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding
+                            .UTF8
+                            .GetBytes(builder.Configuration["SymmetricSecurityKey"])),
+                    ValidateAudience = false,
+                    ValidateIssuer = false,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero
+                };
+            });
 
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("Bearer", policy =>
-    {
-        policy.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
-        policy.RequireAuthenticatedUser();
-    });
-});
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Bearer", policy =>
+                {
+                    policy.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
+                    policy.RequireAuthenticatedUser();
+                });
+            });
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-// builder.Services.AddDataProtection();
+            builder.Services.AddScoped<UserService>();
+            builder.Services.AddScoped<TokenService>();
 
-builder.Services.AddScoped<UserService>();
-builder.Services.AddScoped<TokenService>();
+            builder.Services.AddDataProtection()
+                .PersistKeysToFileSystem(new DirectoryInfo(Path.GetTempPath()));
 
-builder.Services.AddDataProtection()
-    .PersistKeysToFileSystem(new DirectoryInfo(Path.GetTempPath()));
+            builder.Services.AddControllers();
 
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+            var app = builder.Build();
 
-var app = builder.Build();
+            // Configure the HTTP request pipeline.
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
+            // app.UseHttpsRedirection();
+            app.UseCors("CorsPolicy");
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            app.MapControllers();
+
+            app.Run();
+        }
+    }
 }
-
-// app.UseHttpsRedirection();
-app.UseCors("CorsPolicy");
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();

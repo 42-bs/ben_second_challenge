@@ -1,22 +1,34 @@
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using Api.Models;
-using Microsoft.IdentityModel.Tokens;
-
 #nullable disable
 
 namespace Api.Services
 {
+    using System.IdentityModel.Tokens.Jwt;
+    using System.Security.Claims;
+    using System.Text;
+    using Api.Models;
+    using Microsoft.IdentityModel.Tokens;
+
+    /// <summary>
+    /// It has the necessary service for the token management rules.
+    /// </summary>
     public class TokenService
     {
-        private readonly IConfiguration _configuration;
+        private readonly IConfiguration configuration;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TokenService"/> class.
+        /// </summary>
+        /// <param name="configuration">Contains the configuration options of the application.</param>
         public TokenService(IConfiguration configuration)
         {
-            _configuration = configuration;
+            this.configuration = configuration;
         }
 
+        /// <summary>
+        /// Generates a tokaen.
+        /// </summary>
+        /// <param name="user">Represents the Model of a user.</param>
+        /// <returns>Returns a token.</returns>
         public JwtToken GenerateToken(User user)
         {
             Claim[] claims = new Claim[]
@@ -28,8 +40,7 @@ namespace Api.Services
             var key = new SymmetricSecurityKey(
                 Encoding
                 .UTF8
-                .GetBytes(_configuration["SymmetricSecurityKey"])
-                );
+                .GetBytes(configuration["SymmetricSecurityKey"]));
 
             var signinCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
@@ -37,7 +48,7 @@ namespace Api.Services
                 expires: DateTime.Now.AddMinutes(1),
                 claims: claims,
                 signingCredentials: signinCredentials);
-            
+
             var jwtToken = new JwtToken
             {
                 Token = new JwtSecurityTokenHandler().WriteToken(token)

@@ -2,10 +2,16 @@ namespace Api.Models
 {
     using Microsoft.AspNetCore.Identity;
 
-    public class User: IdentityUser
+    /// <summary>
+    /// Model of User object.
+    /// </summary>
+    public class User : IdentityUser
     {
-        public DateTime BirthDate { get; set; }
-        public User(): base()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="User"/> class.
+        /// </summary>
+        public User()
+            : base()
         {
         }
     }

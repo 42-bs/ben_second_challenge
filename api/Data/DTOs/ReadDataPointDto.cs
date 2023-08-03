@@ -4,7 +4,6 @@
 
 namespace Api.Data.DTOs
 {
-    using Api.Models;
     /// <summary>
     /// This class get data received from Kafka and convert to Database schema.
     /// </summary>

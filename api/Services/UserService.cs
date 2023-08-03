@@ -1,33 +1,50 @@
 namespace Api.Services
 {
+    using Api.Data.DTOs;
+    using Api.Models;
     using AutoMapper;
     using Microsoft.AspNetCore.Identity;
-    using Api.Models;
-    using Api.Data.DTOs;
 
+    /// <summary>
+    /// Service which contains the sign in and sign up rules.
+    /// </summary>
     public class UserService
     {
-        private readonly IMapper _mapper;
-        private readonly UserManager<User> _usermanager;
-        private readonly SignInManager<User> _signInManager;
-        private readonly TokenService _tokenService;
+        private readonly IMapper mapper;
+        private readonly UserManager<User> usermanager;
+        private readonly SignInManager<User> signInManager;
+        private readonly TokenService tokenService;
 
-        public UserService(IMapper mapper,
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserService"/> class.
+        /// </summary>
+        /// <param name="mapper">Mapps the DTO with model.</param>
+        /// <param name="usermanager">Manages the user.</param>
+        /// <param name="signInManager">Manages the sign in.</param>
+        /// <param name="tokenService">Token service.</param>
+        public UserService(
+            IMapper mapper,
             UserManager<User> usermanager,
             SignInManager<User> signInManager,
             TokenService tokenService)
         {
-            _mapper = mapper;
-            _usermanager = usermanager;
-            _signInManager = signInManager;
-            _tokenService = tokenService;
+            this.mapper = mapper;
+            this.usermanager = usermanager;
+            this.signInManager = signInManager;
+            this.tokenService = tokenService;
         }
 
+        /// <summary>
+        /// Method that creates the user account.
+        /// </summary>
+        /// <param name="createUserDto">User's sent object to create the account.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="ApplicationException">Thrown if there's an error during the user creation.</exception>
         public async Task Signup(CreateUserDto createUserDto)
         {
-            User user = _mapper.Map<User>(createUserDto);
+            User user = mapper.Map<User>(createUserDto);
 
-            IdentityResult result = await _usermanager.CreateAsync(user, createUserDto.Password);
+            IdentityResult result = await usermanager.CreateAsync(user, createUserDto.Password);
 
             if (!result.Succeeded)
             {
@@ -35,27 +52,33 @@ namespace Api.Services
             }
         }
 
+        /// <summary>
+        /// Method that does the login.
+        /// </summary>
+        /// <param name="loginUserDto">User's sent object to login.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="ApplicationException">Thrown if there's an error during the login.</exception>
         public async Task<JwtToken?> Signin(LoginUserDto loginUserDto)
         {
-            var result = await _signInManager.PasswordSignInAsync(
+            var result = await signInManager.PasswordSignInAsync(
                 loginUserDto.UserName, loginUserDto.Password, false, false);
-        
+
             if (!result.Succeeded)
             {
                 throw new ApplicationException("Failed to Login");
             }
 
-            var user = _signInManager
+            var user = signInManager
                 .UserManager
                 .Users
                 .FirstOrDefault(u => u.NormalizedUserName == loginUserDto.UserName.ToUpper());
-            
+
             if (user == null)
             {
                 return null;
             }
 
-            var token = _tokenService.GenerateToken(user);
+            var token = tokenService.GenerateToken(user);
 
             return token;
         }

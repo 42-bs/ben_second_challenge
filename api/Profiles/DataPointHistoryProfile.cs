@@ -1,11 +1,19 @@
 namespace Api.Profiles
 {
-    using AutoMapper;
     using Api.Data.DTOs;
     using Api.Models;
+    using AutoMapper;
 
-    public class DataPointHistoryProfile: Profile {
-        public DataPointHistoryProfile() {
+    /// <summary>
+    /// Does the mapping rules from Model to DTO.
+    /// </summary>
+    public class DataPointHistoryProfile : Profile
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataPointHistoryProfile"/> class.
+        /// </summary>
+        public DataPointHistoryProfile()
+        {
             // CreateMap<ReadDataPointHistoryDto, DataPointHistory>();
             CreateMap<DataPointHistory, ReadDataPointHistoryDto>()
             .ForMember(dto => dto.DataPoint, opt =>
