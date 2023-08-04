@@ -34,18 +34,15 @@ namespace Consumer
                         ";TrustServerCertificate=true");
         }
 
+        /// <inheritdoc/>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<DataPointHistory>()
-				.HasOne(e => e.DataPoint)
-				.WithMany(e => e.DataPointHistorys)
-				.HasForeignKey(e => e.DataPointId)
-				.HasPrincipalKey(e => e.Id)
-				.IsRequired();
-                // .HasMany(e => e.DataPointHistorys)
-                // .WithOne(e => e.DataPoint)
-                // .HasForeignKey(e => e.DataPointId)
-                // .HasPrincipalKey(e => e.Id);
+                .HasOne(e => e.DataPoint)
+                .WithMany(e => e.DataPointHistorys)
+                .HasForeignKey(e => e.DataPointId)
+                .HasPrincipalKey(e => e.Id)
+                .IsRequired();
         }
     }
 }

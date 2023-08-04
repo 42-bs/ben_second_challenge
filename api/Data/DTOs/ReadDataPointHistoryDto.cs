@@ -5,6 +5,7 @@
 namespace Api.Data.DTOs
 {
     using Api.Models;
+
     /// <summary>
     /// This class get data received from Kafka and convert to Database schema.
     /// </summary>
@@ -38,6 +39,6 @@ namespace Api.Data.DTOs
         /// <summary>
         /// Gets or Sets Representation of DataPoint as DataPoint.
         /// </summary>
-        public virtual DataPoint DataPoint { get; set; }
+        public virtual DataPoint? DataPoint { get; set; }
     }
 }

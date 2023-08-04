@@ -31,7 +31,7 @@ namespace Consumer
             {
                 GroupId = "consumer-group-1",
                 BootstrapServers = Env.GetString("KAFKA_HOST"),
-                AutoOffsetReset = AutoOffsetReset.Earliest
+                AutoOffsetReset = AutoOffsetReset.Earliest,
             };
 
             using var consumer = new ConsumerBuilder<Ignore, DataPointHistory>(config).
