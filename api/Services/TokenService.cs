@@ -41,7 +41,7 @@ namespace Api.Services
                 new Claim("username", user.UserName),
                 new Claim("id", user.Id)
             };
-
+            
             var key = new SymmetricSecurityKey(
                 Encoding
                 .UTF8

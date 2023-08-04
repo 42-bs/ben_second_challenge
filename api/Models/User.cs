@@ -1,3 +1,5 @@
+#nullable disable
+
 namespace Api.Models
 {
     using Microsoft.AspNetCore.Identity;
@@ -14,5 +16,10 @@ namespace Api.Models
             : base()
         {
         }
+
+        /// <summary>
+        /// Gets or sets birthdate.
+        /// </summary>
+        public DateTime BirthDate { get; set; }
     }
 }
