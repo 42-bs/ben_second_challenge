@@ -5,7 +5,6 @@
 namespace Api.Models
 {
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>
     /// This class get data received from Kafka and convert to Database schema.
@@ -46,6 +45,6 @@ namespace Api.Models
         /// <summary>
         /// Gets or Sets Representation of DataPoint as DataPoint.
         /// </summary>
-        public virtual DataPoint DataPoint { get; set; }
+        public virtual DataPoint? DataPoint { get; set; }
     }
 }

@@ -4,9 +4,8 @@
 
 namespace Api.Models
 {
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     /// <summary>
     /// This class get data received from Kafka and convert to Database schema.
@@ -50,8 +49,10 @@ namespace Api.Models
         [Required]
         public double? Offset { get; set; }
 
+#nullable disable
+
         /// <summary>
-        /// Gets Representation of DataPointHistorys as ICollection.
+        /// Gets or Sets Representation of DataPointHistorys as ICollection.
         /// </summary>
         public virtual ICollection<DataPointHistory> DataPointHistorys { get; set; }
     }

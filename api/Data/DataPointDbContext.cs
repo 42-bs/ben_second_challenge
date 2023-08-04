@@ -4,21 +4,29 @@
 
 namespace Api.Data
 {
+    using Api.Models;
     using DotNetEnv;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
-    using Api.Models;
 
     /// <summary>
     /// Define the context of the database and the table for DataPointHistory model and specify the db provider configuration.
     /// </summary>
     public class DataPointDbContext : IdentityDbContext<User>
     {
-        private readonly IConfiguration _configuration;
-        public DataPointDbContext(DbContextOptions<DataPointDbContext> options, IConfiguration configuration): base(options)
+        private readonly IConfiguration configuration;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataPointDbContext"/> class.
+        /// </summary>
+        /// <param name="options">Contains the configuration options which are going to be used by the DbContext.</param>
+        /// <param name="configuration">Contains the configuration options for the application.</param>
+        public DataPointDbContext(DbContextOptions<DataPointDbContext> options, IConfiguration configuration)
+            : base(options)
         {
-            _configuration = configuration;
+            this.configuration = configuration;
         }
+
         /// <summary>
         /// Gets or Sets Representation of DataPointHistory Entity.
         /// </summary>
@@ -29,14 +37,13 @@ namespace Api.Data
         /// </summary>
         public DbSet<DataPoint> DataPointTable { get; set; }
 
-        //public DbSet<User> UserTable { get; set; }
-
         /// <inheritdoc/>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_configuration["ConnectionStrings:UserConnection"]);
+            optionsBuilder.UseSqlServer(configuration["ConnectionStrings:UserConnection"]);
         }
 
+        /// <inheritdoc/>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

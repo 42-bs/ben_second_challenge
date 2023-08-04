@@ -6,9 +6,7 @@ namespace Consumer
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Text;
-    using System.Threading.Tasks;
     using Confluent.Kafka;
     using Newtonsoft.Json;
 
@@ -41,7 +39,7 @@ namespace Consumer
                 DataPointId = int.Parse(dict["dataPointId"].ToString()),
                 Value = double.Parse(dict["value"].ToString()),
                 Date = DateTime.Parse(dict["date"].ToString()),
-				Status = dict["status"].ToString()
+                Status = dict["status"].ToString()
             };
             return dataPointHistory;
         }

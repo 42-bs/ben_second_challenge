@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace consumer.Migrations
+namespace Consumer.Migrations
 {
     [DbContext(typeof(DataPointDbContext))]
     partial class DataPointDbContextModelSnapshot : ModelSnapshot

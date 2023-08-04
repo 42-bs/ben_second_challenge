@@ -4,9 +4,6 @@
 
 namespace Consumer
 {
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
     /// <summary>
     /// This class get data received from Kafka and convert to Database schema.
     /// </summary>
@@ -40,6 +37,6 @@ namespace Consumer
         /// <summary>
         /// Gets or Sets Representation of DataPoint as DataPoint.
         /// </summary>
-        public DataPoint DataPoint { get; set; }
+        public DataPoint? DataPoint { get; set; }
     }
 }
