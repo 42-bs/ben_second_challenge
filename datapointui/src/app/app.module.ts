@@ -6,18 +6,24 @@ import { AppComponent } from './app.component';
 import { SigninComponent } from './modules/authentication/components/signin/signin.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AccessdataComponent } from './modules/accessdata/components/accessdata/accessdata.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     AppComponent,
     SigninComponent,
     AccessdataComponent
-  ],
-  imports: [
+],
+imports: [
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule,
+    BrowserAnimationsModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]
